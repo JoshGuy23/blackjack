@@ -7,13 +7,11 @@ def deal_card():
     return random.choice(cards)
 
 def calculate_score(card_list):
-    score = 0
-    for card in card_list:
-        score += card
-        if card == 11 and score > 21:
-            score -= 10
-            card_list.remove(card)
-            card_list.append(1)
+    score = sum(card_list)
+    if 11 in card_list and score > 21:
+        score -= 10
+        card_list.remove(11)
+        card_list.append(1)
     if score == 21:
         score = 0
     return score
@@ -41,8 +39,8 @@ while playing == 'y':
     user_cards = []
     computer_cards = []
     for i in range(2):
-        user_cards.append(deal_card)
-        computer_cards.append(deal_card)
+        user_cards.append(deal_card())
+        computer_cards.append(deal_card())
     drawing = 'y'
     game_over = False
     while drawing == 'y':
@@ -66,10 +64,10 @@ while playing == 'y':
         else:
             drawing = input("Do you want to draw another card? Type 'y' or 'n': ").lower()
             if drawing == 'y':
-                user_cards.append(deal_card)
+                user_cards.append(deal_card())
     if not game_over:
         while computer_score < 16:
-            computer_cards.append(deal_card)
+            computer_cards.append(deal_card())
             computer_score = calculate_score(computer_cards)
         game_state = compare(user_score, computer_score)
         print(f"Your hand is: {user_cards}, with a score of {user_score}.")
@@ -83,4 +81,4 @@ while playing == 'y':
     playing = input("Do you want to play another game of Blackjack? Type 'y' or 'n': ").lower()
     os.system('cls' if os.name == 'nt' else 'clear')
     
-print("Thank you for playing?")
+print("Thank you for playing!")
