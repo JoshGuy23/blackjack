@@ -10,6 +10,10 @@ def calculate_score(card_list):
     score = 0
     for card in card_list:
         score += card
+        if card == 11 and score > 21:
+            score -= 10
+            card_list.remove(card)
+            card_list.append(1)
     if score == 21:
         score = 0
     return score
