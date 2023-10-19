@@ -27,4 +27,13 @@ while playing == 'y':
     for i in range(2):
         user_cards.append(deal_card)
         computer_cards.append(deal_card)
-    
+    user_score = calculate_score(user_cards)
+    computer_score = calculate_score(computer_cards)
+    print(f"Your hand is: {user_cards}, with a score of {user_score}.")
+    if computer_score == 0:
+        print(f"The computer's hand is {computer_cards}, with a score of {computer_score}, a blackjack.")
+        print("You lose!")
+    elif user_score == 0:
+        print("You have a blackjack! You win!")
+    elif user_score > 21:
+        print("Your score is over 21. You lose!")
