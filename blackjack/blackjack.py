@@ -18,6 +18,22 @@ def calculate_score(card_list):
         score = 0
     return score
 
+def compare(u_score, c_score):
+    if c_score == 0:
+        return -1
+    elif u_score == 0:
+        return 1
+    elif u_score > 21:
+        return -1
+    elif c_score > 21:
+        return 1
+    elif u_score > c_score:
+        return 1
+    elif u_score < c_score:
+        return -1
+    else:
+        return 0
+
 playing = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower()
 
 while playing == 'y':
@@ -27,13 +43,31 @@ while playing == 'y':
     for i in range(2):
         user_cards.append(deal_card)
         computer_cards.append(deal_card)
-    user_score = calculate_score(user_cards)
-    computer_score = calculate_score(computer_cards)
-    print(f"Your hand is: {user_cards}, with a score of {user_score}.")
-    if computer_score == 0:
-        print(f"The computer's hand is {computer_cards}, with a score of {computer_score}, a blackjack.")
-        print("You lose!")
-    elif user_score == 0:
-        print("You have a blackjack! You win!")
-    elif user_score > 21:
-        print("Your score is over 21. You lose!")
+    drawing = 'y'
+    game_over = False
+    while drawing == 'y':
+        user_score = calculate_score(user_cards)
+        computer_score = calculate_score(computer_cards)
+        print(f"Your hand is: {user_cards}, with a score of {user_score}.")
+        print(f"The computer's first card is {computer_cards[0]}.")
+        if computer_score == 0:
+            print(f"The computer's hand is {computer_cards}, with a score of {computer_score}, a blackjack.")
+            print("You lose!")
+            drawing = 'n'
+            game_over = True
+        elif user_score == 0:
+            print("You have a blackjack! You win!")
+            drawing = 'n'
+            game_over = True
+        elif user_score > 21:
+            print("Your score is over 21. You lose!")
+            drawing = 'n'
+            game_over = True
+        else:
+            drawing = input("Do you want to draw another card? Type 'y' or 'n': ").lower()
+            if drawing == 'y':
+                user_cards.append(deal_card)
+    while not game_over:
+        while computer_score < 16:
+            computer_cards.append(deal_card)
+            computer_score = calculate_score(computer_cards)
