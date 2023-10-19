@@ -10,6 +10,8 @@ def calculate_score(card_list):
     score = 0
     for card in card_list:
         score += card
+    if score == 21:
+        score = 0
     return score
 
 playing = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower()
