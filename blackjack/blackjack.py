@@ -81,3 +81,6 @@ while playing == 'y':
         else:
             print("It's a draw!")
     playing = input("Do you want to play another game of Blackjack? Type 'y' or 'n': ").lower()
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+print("Thank you for playing?")
