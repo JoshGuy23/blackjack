@@ -67,7 +67,17 @@ while playing == 'y':
             drawing = input("Do you want to draw another card? Type 'y' or 'n': ").lower()
             if drawing == 'y':
                 user_cards.append(deal_card)
-    while not game_over:
+    if not game_over:
         while computer_score < 16:
             computer_cards.append(deal_card)
             computer_score = calculate_score(computer_cards)
+        game_state = compare(user_score, computer_score)
+        print(f"Your hand is: {user_cards}, with a score of {user_score}.")
+        print(f"The hand of the computer is: {computer_cards}, with a score of {computer_score}.")
+        if game_state == 1:
+            print("You win!")
+        elif game_state == -1:
+            print("You lose!")
+        else:
+            print("It's a draw!")
+    playing = input("Do you want to play another game of Blackjack? Type 'y' or 'n': ").lower()
